@@ -142,6 +142,7 @@ void loop()
       snprintf(messagePayload,MESSAGE_MAX_LEN, messageData, DEVICE_ID, messageCount++, temperature,humidity);
       Serial.println(messagePayload);
       EVENT_INSTANCE* message = Esp32MQTTClient_Event_Generate(messagePayload, MESSAGE);
+      Esp32MQTTClient_Event_AddSystemPropreties(message, "ESP32_ID", "CORE_ID", "utf-8", "application%2fjson");
       Esp32MQTTClient_Event_AddProp(message, "temperatureAlert", "true");
       Esp32MQTTClient_SendEventInstance(message);
       
