@@ -362,6 +362,38 @@ EVENT_INSTANCE *Esp32MQTTClient_Event_Generate(const char *eventString, EVENT_TY
     return event;
 }
 
+void Esp32MQTTClient_Event_AddSystemPropreties(EVENT_INSTANCE *message, const char *messageId, const char *correlationId, const char *encoding, const char *contentType)
+{
+    if ( messageId != NULL )
+    {
+	if (IoTHubMessage_SetMessageId(message->messageHandle, messageId) != IOTHUB_MESSAGE_OK )
+        {
+        	LogError("messageId System Property not set ");
+        }
+    }
+    if ( correlationId != NULL )
+    {
+	if ( IoTHubMessage_SetCorrelationId(message->messageHandle, correlationId) != IOTHUB_MESSAGE_OK )
+        {
+        	LogError("correlationId System Property not set ");
+        }
+    }
+    if ( encoding != NULL )
+    {
+	if ( IoTHubMessage_SetContentEncodingSystemProperty(message->messageHandle, encoding) != IOTHUB_MESSAGE_OK )
+        {
+        	LogError("encoding System Property not set ");
+        }
+    }
+    if ( contentType != NULL )
+    {
+	if ( IoTHubMessage_SetContentTypeSystemProperty(message->messageHandle, contentType) != IOTHUB_MESSAGE_OK )
+        {
+        	LogError("contentType System Property not set ");
+        }
+    }
+}
+
 void Esp32MQTTClient_Event_AddProp(EVENT_INSTANCE *message, const char *key, const char *value)
 {
     if (message == NULL || key == NULL)

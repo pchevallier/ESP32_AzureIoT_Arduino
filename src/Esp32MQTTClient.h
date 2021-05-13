@@ -37,6 +37,17 @@ typedef struct EVENT_INSTANCE_TAG
 EVENT_INSTANCE* Esp32MQTTClient_Event_Generate(const char *eventString, EVENT_TYPE type);
 
 /**
+* @brief    Add custom system properties to message
+*
+* @param    message                 The message need to be modified.
+* @param    messageId               the message Id
+* @param    correlationId	    The correlation Id
+* @param    encoding		    The encoding (i.e. "utf-8")
+* @param    contentType		    The content type used to pass the message body (i.e.  "application/json")
+*/
+void Esp32MQTTClient_Event_AddSystemPropreties(EVENT_INSTANCE *message, const char *messageId, const char *correlationId, const char *encoding, const char *contentType);
+
+/**
 * @brief    Add new property value for message.
 *
 * @param    message                 The message need to be modified.
